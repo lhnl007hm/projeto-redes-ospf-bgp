@@ -1,0 +1,328 @@
+|-----------------------------------------------------------------------------------------------------------------|
+SCRIPT
+
+
+R_ITQ
+
+en
+conf t
+hostname ITQ
+int g0/0/0
+ip add 172.16.3.254 255.255.252.0
+no shutdown
+int s0/1/0 
+ip add 172.16.7.113 255.255.255.252
+no shutdown
+exit
+router ospf 10
+network 172.16.0.1 0.0.3.255 area 10
+network 172.16.7.112 0.0.0.3 area 0
+passive-interface g0/0/0
+enable secret senai@132
+line console 0
+password senai@132
+login local
+exit
+line vty 0 4
+password senai@132
+login local
+service password-encryption
+do write
+exit
+
+|-----------------------------------------------------------------------------------------------------------------|
+
+R_SM
+
+en
+conf t
+hostname R_SM
+int g0/0/0
+ip add 172.16.7.110 255.255.255.240
+no shutdown
+int s0/1/1 
+ip add 172.16.7.121 255.255.255.252
+no shutdown
+exit
+router ospf 20
+network 172.16.7.97 0.0.0.15 area 20
+network 172.16.7.120 0.0.0.3 area 0
+passive-interface g0/0/0
+enable secret senai@132
+line console 0
+password senai@132
+login local
+exit
+line vty 0 4
+password senai@132
+login local
+service password-encryption
+do write
+exit
+
+|-----------------------------------------------------------------------------------------------------------------|
+
+R_ITA
+
+en
+conf t
+hostname R_ITA
+int g0/0/0
+ip add 172.16.6.254 255.255.255.0
+no shutdown
+int s0/1/0 
+ip add 172.16.7.118 255.255.255.252
+no shutdown
+exit
+router ospf 30
+network 172.16.6.1 0.0.0.255 area 30
+network 172.16.7.116 0.0.0.3 area 0
+passive-interface g0/0/0
+enable secret senai@132
+line console 0
+password senai@132
+login local
+exit
+line vty 0 4
+password senai@132
+login local
+service password-encryption
+do write
+exit
+
+|-----------------------------------------------------------------------------------------------------------------|
+
+R_BX
+
+en
+conf t
+hostname R_BX
+int g0/0/0
+ip add 172.16.7.62 255.255.255.192
+no shutdown
+int s0/1/0
+ip add 172.16.7.125 255.255.255.252
+no shutdown
+exit
+router ospf 40
+network 172.16.7.1 0.0.0.63 area 30
+network 172.16.7.124 0.0.0.3 area 0
+passive-interface g0/0/0
+enable secret senai@132
+line console 0
+password senai@132
+login local
+exit
+line vty 0 4
+password senai@132
+login local
+service password-encryption
+do write
+exit
+
+|-----------------------------------------------------------------------------------------------------------------|
+
+R_LEME
+
+en
+conf t
+hostname R_LEME
+int g0/0/0
+ip add 172.16.7.94 255.255.255.254
+no shutdown
+int s0/1/0
+ip add 172.16.7.134 255.255.255.252
+no shutdown
+exit
+router ospf 50
+network 172.16.7.65 0.0.0.1 area 50
+network 172.16.7.132 0.0.0.3 area 0
+passive-interface g0/0/0
+enable secret senai@132
+line console 0
+password senai@132
+login local
+exit
+line vty 0 4
+password senai@132
+login local
+service password-encryption
+do write
+exit
+
+|-----------------------------------------------------------------------------------------------------------------|
+
+R_PONTAL
+
+en
+conf t
+hostname R_PONTAL
+int g0/0/0
+ip add 172.16.5.254 255.255.252.0
+no shutdown
+int s0/1/0
+ip add 172.16.7.130 255.255.255.252
+no shutdown
+exit
+router ospf 50
+network 172.16.4.1 0.0.1.255 area 50
+network 172.16.7.130 0.0.0.3 area 0
+passive-interface g0/0/0
+enable secret senai@132
+line console 0
+password senai@132
+login local
+exit
+line vty 0 4
+password senai@132
+login local
+service password-encryption
+do write
+exit
+
+|-----------------------------------------------------------------------------------------------------------------|
+
+R_LESTE
+
+en
+conf t 
+hostname R_LESTE
+int s0/1/1
+ip add 172.16.7.122 255.255.255.252
+no shutdown
+int s0/2/0
+ip add 172.16.7.117 255.255.255.252
+no shutdown
+clock rate 2000000
+int s0/2/1
+ip add 10.0.0.21 255.255.255.252
+no shutdown 
+int s0/1/0
+ip add 172.16.7.114 255.255.255.252
+no shutdown
+exit
+router ospf 0
+network 172.16.7.120 0.0.0.3 area 0
+network 172.16.7.116 0.0.0.3 area 0
+network 172.16.7.112 0.0.0.3 area 0
+redistribute bgp 13201 metric 0 subnets
+router bgp 13201
+neighbor 10.0.0.22 remote-as 13202
+network 10.0.0.20 mask 255.255.255.252
+redistribute ospf 0
+enable secret senai@132
+line console 0
+password senai@132
+login local
+exit
+line vty 0 4
+password senai@132
+login local
+service password-encryption
+do write
+exit
+
+|-----------------------------------------------------------------------------------------------------------------|
+
+R_SUL
+
+en
+conf t 
+hostname R_SUL
+int s0/1/1
+ip add 10.0.0.18 255.255.255.252
+no shutdown
+int s0/2/0
+ip add 172.16.7.126 255.255.255.252
+no shutdown
+int s0/2/1
+ip add 172.16.7.133 255.255.255.252
+no shutdown
+clock rate 2000000 
+int s0/1/0
+ip add 172.16.7.129 255.255.255.252
+no shutdown
+exit
+router ospf 0
+network 172.16.7.124 0.0.0.3 area 0
+network 172.16.7.132 0.0.0.3 area 0
+network 172.16.7.128 0.0.0.3 area 0
+redistribute bgp 13204 metric 0 subnets
+router bgp 13204
+neighbor 10.0.0.17 remote-as 13203
+network 10.0.0.16 mask 255.255.255.252
+redistribute ospf 0
+enable secret senai@132
+line console 0
+password senai@132
+login local
+exit
+line vty 0 4
+password senai@132
+login local
+service password-encryption
+do write
+exit
+
+|-----------------------------------------------------------------------------------------------------------------|
+
+R_SP
+
+en
+conf t 
+hostname R_SP
+int s0/1/0
+ip add 10.0.0.13 255.255.255.252
+no shutdown
+int s0/1/0
+ip add 10.0.0.22 255.255.255.252
+no shutdown
+clock rate 2000000
+router bgp 13202
+neighbor 10.0.0.21 remote-as 13201
+neighbor 10.0.0.14 remote-as 13203
+network 10.0.0.20 mask 255.255.255.252
+network 10.0.0.12 mask 255.255.255.252
+enable secret senai@132
+line console 0
+password senai@132
+login local
+exit
+line vty 0 4
+password senai@132
+login local
+service password-encryption
+do write
+exit
+
+|-----------------------------------------------------------------------------------------------------------------|
+
+R_RJ
+
+en
+conf t 
+hostname R_RJ
+int s0/1/0
+ip add 10.0.0.17 255.255.255.252
+no shutdown
+clock rate 2000000
+int s0/1/0
+ip add 10.0.0.14 255.255.255.252
+no shutdown
+router bgp 13203
+neighbor 10.0.0.13 remote-as 13202
+neighbor 10.0.0.18 remote-as 13204
+network 10.0.0.12 mask 255.255.255.252
+network 10.0.0.16 mask 255.255.255.252
+enable secret senai@132
+line console 0
+password senai@132
+login local
+exit
+line vty 0 4
+password senai@132
+login local
+service password-encryption
+do write
+exit
+|-----------------------------------------------------------------------------------------------------------------|
