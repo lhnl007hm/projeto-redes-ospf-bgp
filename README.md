@@ -4,7 +4,7 @@
 
 O objetivo desse projeto é realizar a configuração de uma rede, utilizando os protocolos **OSPF** e **BGP**, proposto para fechamento de Sprint referente ao 2º Semestre do Curso Técnico em Redes de Computadores, na Escola SENAI de Informática.
 
-![PROJETO](https://drive.google.com/file/d/1T3_S-Z6If2BVBe7014d8r5eThHK2bijw/view?usp=sharing)
+![PROJETO](https://user-images.githubusercontent.com/78453305/117654842-af443800-b16c-11eb-8397-55a58e0502e4.png)
 
 Guias dos protocolos:
 
